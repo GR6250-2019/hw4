@@ -43,7 +43,7 @@ static AddIn xai_black_call(
 	.Category(CATEGORY)
 	.FunctionHelp(L"Return the value of the Black Scholes formula for call price.")
 	.Documentation(
-		L"This function computes the black scholes put price"
+		L"This function computes the black scholes call price"
 
 	)
 );
