@@ -39,8 +39,8 @@ double WINAPI xll_black_put(double f, double sigma, double k, double t)
 #ifdef _DEBUG
 
 test test_black_put([] {
-	ensure(trunc(1000. * xll_black_put(100, 0.2, 100, 0.25)) == 3988)
-	// test value matches to 3 decimal places
+	ensure(trunc(100. * xll_black_put(100, 0.2, 100, 0.25)) == 398)
+	// test value matches to 2 decimal places
 	});
 
 #endif
@@ -73,7 +73,7 @@ double WINAPI xll_black_call(double f, double sigma, double k, double t)
 #ifdef _DEBUG
 
 test test_black_call([] {
-	ensure(xll_black_call(0, 0, 0, 0) == 0)
+	ensure(trunc(100. * xll_black_call(100, 0.2, 100, 0.25)) == 398)
 		// test that call returns correct values
 	});
 
