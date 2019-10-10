@@ -1,39 +1,36 @@
 // fms_black.h - Black model
 #pragma once
-#include "..//xll12/xll/ensure.h"
 #include "fms_normal.h"
 
 namespace fms::black {
 
-	// F = f exp(sigma B_t - sigma^2 t/2) is the Black model.
-	// F <= k if and only if B_t/sqrt(t) <= (sigma^2 t/2 + log (k/f))/sigma sqrt(t)
-	template<class F, class S, class K>
-	inline auto moneyness(F f, S s, K k)
-	{
-		ensure(f > 0);
-		ensure(s > 0);
-		ensure(k > 0);
+    // f is underlying price
+	// sigma is volatility
+	// k is strike price
+	// t is time to expiration
+	// for put  price = k*N(-d2) - f*N(-d1) where N(x) is the standard normal cumulative distribution function
+	// for call price = f*N(d1) - k*(n(d2)
+	// d1 = (ln(f/k) + (sigma^2)*t/2) / (sigma * sqrt(t))
+	// d2 = d1 - sigma *sqrt(t)
 
-		return (s * s / 2 + log(k / f)) / s;
-	}
-    
-	template<class F, class S, class K, class T>
-	inline auto put(F f, S sigma, K k, T t)
+	inline auto put(double f, double sigma, double k, double t)
 	{
-		auto s = sigma * sqrt(t);
-		auto d2 = -moneyness(f, s, k);
-		auto d1 = d2 + s;
 
-		return k * normal::cdf(-d2) - f * normal::cdf(-d1);
+		auto d1 = ((sigma * sqrt(t)) / 2) + (log(k / f) / (sigma * sqrt(t)));
+		auto d2 = d1 - (sigma * sqrt(t));
+
+		return k * fms::normal::cdf(-d2) - f * fms::normal::cdf(-d1);
+
 	}
 
-	template<class F, class S, class K, class T>
-	inline auto call(F f, S sigma, K k, T t)
+	inline auto call(double f, double sigma, double k, double t)
 	{
-		auto s = sigma * sqrt(t);
-		auto d2 = -moneyness(f, s, k);
-		auto d1 = d2 + s;
 
-		return f * normal::cdf(d1) - k * normal::cdf(d2);
+		auto d1 = ((sigma * sqrt(t)) / 2) + (log(k / f) / (sigma * sqrt(t)));
+		auto d2 = d1 - (sigma * sqrt(t));
+
+		return f * fms::normal::cdf(d1) - k * fms::normal::cdf(d2);
+
 	}
+
 } // fms::black
