@@ -19,14 +19,15 @@ using namespace xll;
 
 static AddIn xai_black_put(
 	Function(XLL_DOUBLE, L"?xll_black_put", L"XLL.BLACK.PUT")
-	.Arg(XLL_DOUBLE, L"f", L"is the excercise price")
+	.Arg(XLL_DOUBLE, L"f", L"is the value at which to compute the inverse.")
 	.Arg(XLL_DOUBLE, L"sigma", L"is the volatility of the log returns of the underlying security")
 	.Arg(XLL_DOUBLE, L"k", L"is the strike price")
 	.Arg(XLL_DOUBLE, L"t", L"is the matruity date")
 	.Category(CATEGORY)
-	.FunctionHelp(L"Return the put price of Black Schole algorithm given the input")
+	.FunctionHelp(L"Return the inverse of the cumulative distribution function.")
 	.Documentation(
-		L"This function computes the put price of Black Schole algorithm given the input "
+		L"This function computes the inverse of the cumulative distribution function "
+		MATH_(int_ SUB_(minus_ infin_) SUP_(L"x") L"e" SUP_(minus_ L"z" sup2_ L"/2") L" dx/" radic_ L"2" pi_)
 	)
 );
 
@@ -47,14 +48,15 @@ test test_put([] {
 #endif
 static AddIn xai_black_call(
 	Function(XLL_DOUBLE, L"?xll_black_call", L"XLL.BLACK.CALL")
-	.Arg(XLL_DOUBLE, L"f", L"is the excercise price.")
+	.Arg(XLL_DOUBLE, L"f", L"is the value at which to compute the inverse.")
 	.Arg(XLL_DOUBLE, L"sigma", L"is the volatility of the log returns of the underlying security")
 	.Arg(XLL_DOUBLE, L"k", L"is the strike price")
 	.Arg(XLL_DOUBLE, L"t", L"is the matruity date")
 	.Category(CATEGORY)
-	.FunctionHelp(L"Return the call price of Black Schole algorithm given the input")
+	.FunctionHelp(L"Return the inverse of the cumulative distribution function.")
 	.Documentation(
-		L"This function computes the call price of Black Schole algorithm given the input "
+		L"This function computes the inverse of the cumulative distribution function "
+		MATH_(int_ SUB_(minus_ infin_) SUP_(L"x") L"e" SUP_(minus_ L"z" sup2_ L"/2") L" dx/" radic_ L"2" pi_)
 	)
 );
 
